@@ -20,7 +20,7 @@ Stats Statistics::ComputeStatistics(const std::vector<float>& a) {
         if (x > max)
             max = x;
      }
-    if (!isnan(average))
+    if (!std::isnan(average))
     {
         obj.average = average / a.size();;
         obj.min = min;
