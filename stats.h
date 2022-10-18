@@ -1,5 +1,5 @@
 #include <vector>
-
+#include <cmath>
 class Stats {
 public:
     float average = NAN;
