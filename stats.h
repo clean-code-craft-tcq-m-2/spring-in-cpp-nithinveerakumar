@@ -1,27 +1,39 @@
 #include <vector>
-#include <cmath>
+#include <iostream>
+using namespace std;
 class Stats {
 public:
     float average = NAN;
     float min = NAN;
     float max = NAN;
 };
-
-class EmailAlert {
+class IAlerter {
 public:
-    bool emailSent = false;
+    virtual void  alert() {}
 };
-class LEDAlert {
+class EmailAlert : public IAlerter{
 public:
-    bool ledGlows = false;
+    bool emailSent;
+    EmailAlert() :emailSent(false) {}
+    
+    void alert() {
+        emailSent = true;
+    }
 };
-class IAlerter :public EmailAlert, public LEDAlert {
+class LEDAlert : public IAlerter{
+public:
+    bool ledGlows;
+    LEDAlert() :ledGlows(false) {}
+    void alert() {
+        ledGlows = true;
+    }
+};
 
-};
 class StatsAlerter {
-    float maxThreshold;
-    IAlerter alerters;
-    StatsAlerter(float mt, IAlerter a) :maxThreshold(mt), alerters(a) {}
+public:
+    const float maxThreshold;
+    std::vector<IAlerter*> alerters;
+    StatsAlerter(const float mt, std::vector<IAlerter*>  a) :maxThreshold(mt), alerters(a) {}
     void checkAndAlert(const std::vector<float>&);
 };
 namespace Statistics {
