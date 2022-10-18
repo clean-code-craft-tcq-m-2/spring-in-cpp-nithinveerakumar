@@ -1,6 +1,7 @@
 #include "stats.h"
 
 Stats Statistics::ComputeStatistics(const std::vector<float>& a) {
+    //Implement statistics here
     Stats obj;
     float average = NAN;
     float min = NAN;
@@ -20,7 +21,7 @@ Stats Statistics::ComputeStatistics(const std::vector<float>& a) {
         if (x > max)
             max = x;
      }
-    if (!std::isnan(average))
+    if (!isnan(average))
     {
         obj.average = average / a.size();;
         obj.min = min;
@@ -33,7 +34,9 @@ void StatsAlerter::checkAndAlert(const std::vector<float>& a)
     auto computedStats = Statistics::ComputeStatistics(a);
     if (computedStats.max > maxThreshold)
     {
-        alerters.emailSent = true;
-        alerters.ledGlows = true;
+        for (auto itr : alerters)
+        {
+            itr->alert();
+        }
     }
 }
