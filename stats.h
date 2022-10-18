@@ -10,6 +10,7 @@ public:
 class IAlerter {
 public:
     virtual void  alert() {}
+    void dummy() { cout << "print" << endl; }
 };
 class EmailAlert : public IAlerter{
 public:
@@ -19,6 +20,7 @@ public:
     void alert() {
         emailSent = true;
     }
+    void dummy() { cout << "print email" << endl; }
 };
 class LEDAlert : public IAlerter{
 public:
